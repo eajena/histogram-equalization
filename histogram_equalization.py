@@ -14,6 +14,7 @@ def get_mean_histogram(file_list):
     result_hist, result_cum = None, None
     for n,f in enumerate(file_list):
         imr = io.imread(f, as_grey=True)
+        if imr.dtype=='uint8': imr = imr/255.
         hist = exposure.histogram(imr)[0]
         cum  = exposure.cumulative_distribution(imr)[0]
         result_hist = hist if result_hist is None else result_hist + hist
@@ -77,6 +78,7 @@ if __name__ == "__main__":
             print "%d/%d %s" % (n+1,len(file_list),f)
 
             imi = io.imread(f, as_grey=True)
+            if imi.dtype=='uint8': imi = imi/255.
 
             imo = histogram_matching(ref_cum, imi)
             io.imsave(os.path.join(sys.argv[2], os.path.basename(f)), img_as_uint(imo))

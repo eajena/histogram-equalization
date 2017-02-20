@@ -32,7 +32,7 @@ def histogram_matching(cum_hist, image_in):
     image_out = np.zeros_like(image_in)
     for h in range(image_in.shape[0]):
         for w in range(image_in.shape[1]):
-            image_out[h,w] = m[image_in[h,w]*255]/255
+            image_out[h,w] = m[int(image_in[h,w]*255)]/255
     return image_out
 
 
